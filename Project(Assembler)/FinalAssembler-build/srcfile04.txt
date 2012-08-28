@@ -1,0 +1,14 @@
+.23456789012345678901234567890123456
+.Label.  Opcode  The  O p e r a n d 
+.   
+BGN      START   0000
+         LDA     ALPHA
+         ADD     INCR
+         SUB     #3     
+         STA     BETA
+         J       *
+.
+ALPHA    RESW    1
+BETA     RESW    1
+INCR     RESW    1
+         END     BGN 

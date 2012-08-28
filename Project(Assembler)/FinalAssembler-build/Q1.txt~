@@ -1,0 +1,9 @@
+.2345678901234567890
+prog     start   0100
+         LDA     BETA
+         MUL     GAMMA
+         STA     ALPHA
+ALPHA    RESW    3
+BETA     RESW    1
+GAMMA    RESW    1
+         END     prog

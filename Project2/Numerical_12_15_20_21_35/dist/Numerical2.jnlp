@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Numerical2.jnlp">
+  <information>
+    <title>Numerical2</title>
+    <vendor>Ashraf Saleh</vendor>
+    <description>Sample JavaFX 2.0 application.</description>
+    <offline-allowed/>
+  </information>
+  <resources os="Linux">
+    
+  </resources>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Numerical2.jar" size="52797" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Numerical2" />
+  <jfx:javafx-desc  width="800" height="600" main-class="Main"  name="Numerical2" />
+  <update check="background"/>
+</jnlp>

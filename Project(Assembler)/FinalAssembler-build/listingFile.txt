@@ -1,0 +1,13 @@
+    Symbol table      
+LABEL        HEX VALUE
+----------------------
+ALPHA		0006
+BETA		000F
+EX^0		0005
+GAMMA		0012
+ISLAM		006F
+LEO		0000
+
+    Literal table      
+HEX VALUE	length	address
+-----------------------------------------------

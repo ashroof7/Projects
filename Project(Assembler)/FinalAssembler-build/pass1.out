@@ -1,0 +1,10 @@
+.2345678901234567890
+     1  0000           START                 100                                 
+     2  0100     PROG    LDA                BETA                                 
+     3  0103             STA               ALPHA                                 
+     4  0106    ALPHA   RESW                   3                                 
+     5  010F     BETA   RESW                   1                                 
+     6  0112    GAMMA   RESW                   1                                 
+.ISLAM   EQU     (ALPHA + 5/3)*2
+     7  016F    ISLAM    EQU   *+2*((5*3)*(5-2))                                 
+     8  0115             END                PROG                                 

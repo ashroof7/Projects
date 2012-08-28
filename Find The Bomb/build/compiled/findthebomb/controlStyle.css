@@ -1,0 +1,21 @@
+.button {
+	
+    -fx-text-fill: #e4f3fc;
+    -fx-font: 17pt "Comic Sans MS";
+    -fx-padding: 7;
+    -fx-color: #3d4b8e;
+    -fx-width:250;
+    -fx-height:170;
+    -fx-cursor:hand;
+
+
+}
+
+.button:hover{
+    -fx-color: #0c97e2;
+
+/*    -fx-color: #395bce;*/
+}
+.text:font {
+    -fx-fill:#3d4b8e;
+}

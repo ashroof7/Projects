@@ -1,0 +1,32 @@
+.  set v[i] = f(u[i]) for i = 1,2, ...,8
+.  parameter for F is put in register A
+.  result of F is returned in register A
+.  loop  index <> 1
+prog     start   0000
+bgn      lds     #3   
+         ldt     #24
+         ldx     #0
+loop     lda     u,x
+         jsub    func
+         sta     v,x
+         addr    s,x
+         compr   x,t
+         jlt     *-13
+         j       *
+.    definition of function
+.   f(n) = 3*n*n + 1
+.  upon entry, regigter A contains value
+.  of n and upon exit copntains result
+func     mulr    a,a
+         add     #1
+         rsub
+.   list of values for n 
+u        word    1,2,3
+         word    4
+         word    5
+         word    6
+         word    7  
+         word    8   
+.   array to store results 
+v        resw    8
+         end     bgn

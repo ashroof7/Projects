@@ -1,0 +1,13 @@
+.button {
+	
+    -fx-text-fill: #e4f3fc;
+    -fx-font: 18pt "Comic Sans MS";
+    -fx-padding: 3;
+    -fx-color: #2d4b8e
+    
+
+}
+
+.button:hover{
+    -fx-color: #395bae;
+}

@@ -1,0 +1,29 @@
+nlevels=2
+dimension=8
+# testing for backtracking
+level=1
+map=
+xxxxxxxx
+xrr    B
+x rx xxx
+x x  x x
+x  xx  x
+x      x
+x   rrSx
+xxxx2xxx
+level=2
+dimension=12
+# testing for large obstacles
+map=
+xxxxxxxxxxxx
+x         1x
+  xxxxxxxxxx
+x          x
+xxxxxxxxx   
+x    x     x
+xxx        x
+xVx  x     x
+x x  x     x
+    xx  rrrx
+x   x   rrrx
+ x x  xxxxxx

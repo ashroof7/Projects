@@ -1,0 +1,59 @@
+.button {
+	
+    -fx-text-fill: #e4f3fc;
+    -fx-font: 17pt "Comic Sans MS";
+    -fx-padding: 7;
+    -fx-color: #3d4b8e;
+    -fx-width: 250;
+    -fx-height: 170;
+    -fx-cursor: hand;
+
+}
+
+
+
+#hint{
+    -fx-color: #ff0ddb;
+}
+#submit{
+    -fx-color:#55de3d ;
+}
+#solve{
+   -fx-color:#00aaff
+}
+#sound{
+    -fx-color: #3d4b8e;
+}
+#mainMenu{
+-fx-color:#ff0000
+}
+#exit{
+    -fx-color:#395bce
+}
+
+.button:hover{
+    -fx-color: #0c97e2;
+
+/*    -fx-color: #395bce;*/
+}
+
+
+#hint:hover{
+-fx-color: #000000;
+}
+#submit:hover{
+-fx-color: #000000;
+}
+#solve:hover{
+-fx-color: #000000;
+}
+#sound:hover{
+-fx-color: #000000;
+}
+#mainMenu:hover{
+-fx-color: #000000;
+}
+#exit:hover{
+-fx-color: #000000;
+}
+

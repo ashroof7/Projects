@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Trusted-Library: true
+Main-Class:Main
+X-COMMENT: Main-Class will be added automatically by build
+

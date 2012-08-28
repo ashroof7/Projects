@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="JDBC.jnlp">
+  <information>
+    <title>JDBC</title>
+    <vendor>Ashraf Saleh</vendor>
+    <description>Sample JavaFX 2.0 application.</description>
+    <offline-allowed/>
+  </information>
+  <resources os="Windows">
+    <jfx:javafx-runtime version="2.0+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
+  </resources>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="JDBC.jar" size="109919" download="eager" />
+    <jar href="lib/log4j-1.2.16.jar" size="481534" download="eager" />
+    <jar href="lib/swt.jar" size="1488516" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="JDBC" />
+  <jfx:javafx-desc  width="800" height="600" main-class="queryProcessor.newMain"  name="JDBC" />
+  <update check="background"/>
+</jnlp>
