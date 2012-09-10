@@ -1,0 +1,28 @@
+          symbol table
+        name      address
+        bgn        00000
+        three      0000F
+        alpha      00012
+        beta       00015
+        incr       00018
+
+     p r o g r a m     l i s t i n g
+
+            .23456789012345678901234567890123456                            
+            .Label.  Opcode  The  O p e r a n d                             
+            .                                                               
+00000                 start 0000                                             
+00000 03200F bgn      lda   alpha                                            
+00003 1B2012          add   incr                                             
+00006 1F2006          sub   three                                            
+00009 0F2009          sta   beta                                             
+0000C 3F2FFD          j     *                                                
+            .                                                               
+0000F 000003 three    word  3                                                
+00012        alpha    resw  1                                                
+00015        beta     resw  1                                                
+00018        incr     resw  1                                                
+0001B                 end   bgn                                              
+
+  s u c c e s s f u l    a s s e m b l y
+e  n  d      o  f      p  r  o  g  r  a  m

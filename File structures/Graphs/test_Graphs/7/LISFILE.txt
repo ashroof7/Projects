@@ -1,0 +1,38 @@
+          symbol table
+        name      address
+        prog       00000
+        bgn        00000
+        loop       00009
+        u          00019
+        v          00031
+
+     p r o g r a m     l i s t i n g
+
+            .  copy  8 integers from u to v                                 
+            .  loop  index <> 1                                             
+00000        prog     start 0000                                             
+00000 6D0003 bgn      lds   #3                                               
+00003 750018          ldt   #24                                              
+00006 050000          ldx   #0                                               
+00009 03A00D loop     lda   u,x                                              
+0000C 0FA022          sta   v,x                                              
+0000F 9041            addr  s,x                                              
+00011 A015            compr x,t                                              
+00013 3B2FF3          jlt   *-10                                             
+00016 3F2FFD          j     *                                                
+            .                                                               
+            .   list of values for u                                        
+00019 000001 u        word  1,2,3                                            
+      000002
+      000003
+00022 000004          word  4                                                
+00025 000005          word  5                                                
+00028 000006          word  6                                                
+0002B 000007          word  7                                                
+0002E 000008          word  8                                                
+            .   array to store results                                      
+00031        v        resw  8                                                
+00049                 end   bgn                                              
+
+  s u c c e s s f u l    a s s e m b l y
+e  n  d      o  f      p  r  o  g  r  a  m

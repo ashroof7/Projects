@@ -1,0 +1,48 @@
+          symbol table
+        name      address
+        prog       00000
+        bgn        00000
+        loop       00009
+        func       0001C
+        u          00024
+        v          0003C
+
+     p r o g r a m     l i s t i n g
+
+            .  set v[i] = f(u[i]) for i = 1,2, ...,8                        
+            .  parameter for F is put in register A                         
+            .  result of F is returned in register A                        
+            .  loop  index <> 1                                             
+00000        prog     start 0000                                             
+00000 6D0003 bgn      lds   #3                                               
+00003 750018          ldt   #24                                              
+00006 050000          ldx   #0                                               
+00009 03A018 loop     lda   u,x                                              
+0000C 4B200D          jsub  func                                             
+0000F 0FA02A          sta   v,x                                              
+00012 9041            addr  s,x                                              
+00014 A015            compr x,t                                              
+00016 3B2FF0          jlt   *-13                                             
+00019 3F2FFD          j     *                                                
+            .    definition of function                                     
+            .   f(n) = 3*n*n + 1                                            
+            .  upon entry, regigter A contains value                        
+            .  of n and upon exit copntains result                          
+0001C 9800   func     mulr  a,a                                              
+0001E 190001          add   #1                                               
+00021 4F0000          rsub                                                   
+            .   list of values for n                                        
+00024 000001 u        word  1,2,3                                            
+      000002
+      000003
+0002D 000004          word  4                                                
+00030 000005          word  5                                                
+00033 000006          word  6                                                
+00036 000007          word  7                                                
+00039 000008          word  8                                                
+            .   array to store results                                      
+0003C        v        resw  8                                                
+00054                 end   bgn                                              
+
+  s u c c e s s f u l    a s s e m b l y
+e  n  d      o  f      p  r  o  g  r  a  m

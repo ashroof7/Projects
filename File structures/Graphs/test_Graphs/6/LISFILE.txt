@@ -1,0 +1,30 @@
+          symbol table
+        name      address
+        prog       00000
+        bgn        00000
+        loop       00006
+        str1       00014
+        str2       0001F
+
+     p r o g r a m     l i s t i n g
+
+            .  copy string s1 to s2                                         
+            .   Loop  where index = 1                                       
+00000        prog     start 0000                                             
+00000 75000B bgn      ldt   #11                                              
+00003 050000          ldx   #0                                               
+00006 53A00B loop     ldch  str1,x                                           
+00009 57A013          stch  str2,x                                           
+0000C B850            tixr  t                                                
+0000E 3B2FF5          jlt   loop                                             
+00011 3F2FFD          j     *                                                
+            .                                                               
+00014 746573 str1     byte  c'test string'                                   
+      742073
+      747269
+      6E67
+0001F        str2     resb  11                                               
+0002A                 end   bgn                                              
+
+  s u c c e s s f u l    a s s e m b l y
+e  n  d      o  f      p  r  o  g  r  a  m

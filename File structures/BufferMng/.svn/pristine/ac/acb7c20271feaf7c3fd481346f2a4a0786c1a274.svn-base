@@ -1,0 +1,26 @@
+package bufmgr;
+
+import global.PageId;
+import chainexception.ChainException;
+import diskmgr.Page;
+
+public class BufMgr {
+	Page[] bufpool;
+	BufDescr[] bufDescr;
+	HashTable<PageId, Integer> hash;
+	PlacementPolicy placement;
+	
+	public BufMgr(int numbufs , String replacementArg){}
+	public void pinPage(PageId pin_pgid, Page page, boolean empty) throws ChainException{}
+	
+	// Don't remove from hash
+	public void unpinPage(PageId PageID_in_a_DB, boolean dirty)throws ChainException{}
+	public PageId newPage(Page firstpage, int howmany){
+		return null;
+	}
+	public void freePage(PageId globalPageId)throws ChainException{}
+	public void flushPage(PageId pageid){}
+	public int getNumUnpinnedBuffers(){
+		return 0;
+	} // TODO ?????? get more info
+}

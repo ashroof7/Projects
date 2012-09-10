@@ -1,0 +1,18 @@
+t    0  .  if y>=6 then e = 5y else e = y+10                              
+t    0  .                                                                 
+f    0  prog     start 0000                                             
+f    0  bgn      lda   y                                                
+f    3           comp  #6                                               
+f    6           jgt   else                                             
+f    9           lda   #5                                               
+f   12           mul   y                                                
+f   15           sta   e                                                
+f   18           j     out                                              
+f   21  else     lda   y                                                
+f   24           add   #10                                              
+f   27           sta   e                                                
+f   30  out      j     out                                              
+t   33  .                                                                 
+f   33  y        word  4                                                
+f   36  e        resw  1                                                
+f   39           end   bgn                                              

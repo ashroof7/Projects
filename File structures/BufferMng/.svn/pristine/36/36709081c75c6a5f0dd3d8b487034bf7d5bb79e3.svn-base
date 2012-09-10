@@ -1,0 +1,19 @@
+package bufmgr;
+
+import global.PageId;
+import chainexception.ChainException;
+import diskmgr.Page;
+
+public class BufMgr {
+	public BufMgr(int numbufs , String replacementArg){}
+	public void pinPage(PageId pin_pgid, Page page, boolean empty) throws ChainException{}
+	public void unpinPage(PageId PageID_in_a_DB, boolean dirty)throws ChainException{}
+//	public PageId newPage(Page firstpage, int howmany){}
+	public void freePage(PageId globalPageId)throws ChainException{}
+	public void flushPage(PageId pageid){}
+//	public int getNumUnpinnedBuffers(){} // TODO ?????? get more info
+	
+	public static void main(String[] args) {
+		System.out.println("el beta3 dah beyshta3'al begad :D :D ");
+	}
+}

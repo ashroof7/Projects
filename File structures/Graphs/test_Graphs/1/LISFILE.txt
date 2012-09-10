@@ -1,0 +1,29 @@
+          symbol table
+        name      address
+        bgn        00100
+        five       0010F
+        chrz       00112
+        alpha      00113
+        c1         00116
+
+     p r o g r a m     l i s t i n g
+
+            .23456789012345678901234567890123456                            
+            . ALT & Enter to toggle full screen                             
+            .Label.  Opcode  The  O p e r a n d                             
+            .                                                               
+00100                 start 0100                                             
+00100 03200C bgn      lda   five                                             
+00103 0F200D          sta   alpha                                            
+00106 532009          ldch  chrz                                             
+00109 57200A          stch  c1                                               
+0010C 3F2FFD          j     *                                                
+            .                                                               
+0010F 000005 five     word  5                                                
+00112 5A     chrz     byte  C'Z'                                             
+00113        alpha    resw  1                                                
+00116        c1       resb  1                                                
+00117                 end   bgn                                              
+
+  s u c c e s s f u l    a s s e m b l y
+e  n  d      o  f      p  r  o  g  r  a  m

@@ -1,0 +1,45 @@
+package bufmgr;
+
+import global.PageId;
+
+public class BufDescr {
+	// These Fields was stated in the problem statement internal design section 
+	// so Must implement this in this way
+	PageId id;
+	int pin_count;
+	boolean dirty;
+	public BufDescr(PageId pageID)
+	{
+		id = pageID;
+	}
+	public BufDescr(PageId pageID , int pinCount)
+	{
+		id = pageID;
+		pin_count = pinCount;
+	}
+	public PageId getId()
+	{
+		return id;
+	}
+	public void setId(PageId id)
+	{
+		this.id = id;
+	}
+	public int getPin_count()
+	{
+		return pin_count;
+	}
+	public void setPin_count(int pin_count)
+	{
+		this.pin_count = pin_count;
+	}
+	public boolean isDirty()
+	{
+		return dirty;
+	}
+	public void setDirty(boolean dirty)
+	{
+		this.dirty = dirty;
+	}
+	
+}

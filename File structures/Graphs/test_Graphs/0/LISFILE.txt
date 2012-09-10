@@ -1,0 +1,82 @@
+          symbol table
+        name      address
+        copy       00000
+        first      00000
+        cloop      00006
+        endfil     0001A
+        eof        0002D
+        retadr     00030
+        length     00033
+        buffer     00036
+        rdrec      01036
+        fourk      01000
+        rloop      01040
+        exit       01056
+        input      0105C
+        wrrec      0105D
+        wloop      01062
+        output     01076
+
+     p r o g r a m     l i s t i n g
+
+            .2345678901234567890                                            
+00000        copy     start 0                                                
+00000 17202D first    stl   retadr                                           
+00003 69202D          ldb   #length                                          
+00006                 base  length                                           
+00006 4B1010 cloop   +jsub  rdrec                                            
+      36
+0000A 032026          lda   length                                           
+0000D 290000          comp  #0                                               
+00010 332007          jeq   endfil                                           
+00013 4B1010         +jsub  wrrec                                            
+      5D
+00017 3F2FEC          j     cloop                                            
+0001A 032010 endfil   lda   eof                                              
+0001D 0F2016          sta   buffer                                           
+00020 010003          lda   #3                                               
+00023 0F200D          sta   length                                           
+00026 4B1010         +jsub  wrrec                                            
+      5D
+0002A 3E2003          j     @retadr                                          
+0002D 454F46 eof      byte  C'EOF'                                           
+00030        retadr   resw  1                                                
+00033        length   resw  1                                                
+00036        buffer   resb  4096                                             
+            .                                                               
+            .        SUBROUTINE TO READ RECORD INTO BUFFER                  
+            .                                                               
+01036 B410   rdrec    clear X                                                
+01038 B400            clear A                                                
+0103A B440            clear S                                                
+0103C        fourk    equ   4096                                             
+0103C 751010         +ldt   #fourk                                           
+      00
+01040 E32019 rloop    td    input                                            
+01043 332FFA          jeq   rloop                                            
+01046 DB2013          rd    input                                            
+01049 A004            compr A,S                                              
+0104B 332008          jeq   exit                                             
+0104E 57C003          stch  buffer,X                                         
+01051 B850            tixr  T                                                
+01053 3B2FEA          jlt   rloop                                            
+01056 134000 exit     stx   length                                           
+01059 4F0000          rsub                                                   
+0105C F1     input    byte  X'F1'                                            
+            .                                                               
+            .        SUBROUTINE TO WRITE RECORD FROM BUFFER                 
+            .                                                               
+0105D B410   wrrec    clear X                                                
+0105F 774000          ldt   length                                           
+01062 E32011 wloop    td    output                                           
+01065 332FFA          jeq   wloop                                            
+01068 53C003          ldch  buffer,X                                         
+0106B DF2008          wd    output                                           
+0106E B850            tixr  T                                                
+01070 3B2FEF          jlt   wloop                                            
+01073 4F0000          rsub                                                   
+01076 05     output   byte  X'05'                                            
+01077                 end   first                                            
+
+  s u c c e s s f u l    a s s e m b l y
+e  n  d      o  f      p  r  o  g  r  a  m

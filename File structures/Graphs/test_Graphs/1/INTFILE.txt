@@ -1,0 +1,16 @@
+t    0  .23456789012345678901234567890123456                              
+t    0  . ALT & Enter to toggle full screen                               
+t    0  .Label.  Opcode  The  O p e r a n d                               
+t    0  .                                                                 
+f  256           start 0100                                             
+f  256  bgn      lda   five                                             
+f  259           sta   alpha                                            
+f  262           ldch  chrz                                             
+f  265           stch  c1                                               
+f  268           j     *                                                
+t  271  .                                                                 
+f  271  five     word  5                                                
+f  274  chrz     byte  C'Z'                                             
+f  275  alpha    resw  1                                                
+f  278  c1       resb  1                                                
+f  279           end   bgn                                              

@@ -1,0 +1,32 @@
+t    0  .  set v[i] = f(u[i]) for i = 1,2, ...,8                          
+t    0  .  parameter for F is put in register A                           
+t    0  .  result of F is returned in register A                          
+t    0  .  loop  index <> 1                                               
+f    0  prog     start 0000                                             
+f    0  bgn      lds   #3                                               
+f    3           ldt   #24                                              
+f    6           ldx   #0                                               
+f    9  loop     lda   u,x                                              
+f   12           jsub  func                                             
+f   15           sta   v,x                                              
+f   18           addr  s,x                                              
+f   20           compr x,t                                              
+f   22           jlt   *-13                                             
+f   25           j     *                                                
+t   28  .    definition of function                                       
+t   28  .   f(n) = 3*n*n + 1                                              
+t   28  .  upon entry, regigter A contains value                          
+t   28  .  of n and upon exit copntains result                            
+f   28  func     mulr  a,a                                              
+f   30           add   #1                                               
+f   33           rsub                                                   
+t   36  .   list of values for n                                          
+f   36  u        word  1,2,3                                            
+f   45           word  4                                                
+f   48           word  5                                                
+f   51           word  6                                                
+f   54           word  7                                                
+f   57           word  8                                                
+t   60  .   array to store results                                        
+f   60  v        resw  8                                                
+f   84           end   bgn                                              

@@ -1,0 +1,7 @@
+package bufmgr;
+
+public class PlacementPolicy {
+	void getEmptyFrame(){}
+	void removeCandidate(){}
+	void addCandidate(){}
+}

@@ -1,0 +1,15 @@
+.23456789012345678901234567890123456
+.LABEL.  OPCODE  THE  O P E R A N D 
+.   
+     1  0000      BGN  START                0000                                 
+     2  0000             LDA               ALPHA                                 
+     3  0003             ADD                INCR                                 
+     4  0006             SUB               THREE                                 
+     5  0009             STA                BETA                                 
+     6  000C               J                   *                                 
+.
+     7  000F    THREE   WORD                   3                                 
+     8  0012    ALPHA   RESW                   1                                 
+     9  0015     BETA   RESW                   1                                 
+    10  0018     INCR   RESW                   1                                 
+    11  001B             END                 BGN                                 

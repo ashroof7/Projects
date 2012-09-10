@@ -1,0 +1,23 @@
+t    0  .  copy  8 integers from u to v                                   
+t    0  .  loop  index <> 1                                               
+f    0  prog     start 0000                                             
+f    0  bgn      lds   #3                                               
+f    3           ldt   #24                                              
+f    6           ldx   #0                                               
+f    9  loop     lda   u,x                                              
+f   12           sta   v,x                                              
+f   15           addr  s,x                                              
+f   17           compr x,t                                              
+f   19           jlt   *-10                                             
+f   22           j     *                                                
+t   25  .                                                                 
+t   25  .   list of values for u                                          
+f   25  u        word  1,2,3                                            
+f   34           word  4                                                
+f   37           word  5                                                
+f   40           word  6                                                
+f   43           word  7                                                
+f   46           word  8                                                
+t   49  .   array to store results                                        
+f   49  v        resw  8                                                
+f   73           end   bgn                                              

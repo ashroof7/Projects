@@ -1,0 +1,32 @@
+          symbol table
+        name      address
+        prog       00000
+        bgn        00000
+        else       00015
+        out        0001E
+        y          00021
+        e          00024
+
+     p r o g r a m     l i s t i n g
+
+            .  if y>=6 then e = 5y else e = y+10                            
+            .                                                               
+00000        prog     start 0000                                             
+00000 03201E bgn      lda   y                                                
+00003 290006          comp  #6                                               
+00006 37200C          jgt   else                                             
+00009 010005          lda   #5                                               
+0000C 232012          mul   y                                                
+0000F 0F2012          sta   e                                                
+00012 3F2009          j     out                                              
+00015 032009 else     lda   y                                                
+00018 19000A          add   #10                                              
+0001B 0F2006          sta   e                                                
+0001E 3F2FFD out      j     out                                              
+            .                                                               
+00021 000004 y        word  4                                                
+00024        e        resw  1                                                
+00027                 end   bgn                                              
+
+  s u c c e s s f u l    a s s e m b l y
+e  n  d      o  f      p  r  o  g  r  a  m

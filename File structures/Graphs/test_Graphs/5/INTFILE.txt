@@ -1,0 +1,15 @@
+t    0  .  copy string s1 to s2                                           
+t    0  .   Loop  where index = 1                                         
+f    0  prog     start 0000                                             
+f    0  bgn      ldx   initl                                            
+f    3  loop     ldch  str1,x                                           
+f    6           stch  str2,x                                           
+f    9           tix   test                                             
+f   12           jlt   loop                                             
+f   15           j     *                                                
+t   18  .                                                                 
+f   18  str1     byte  c'test string'                                   
+f   29  str2     resb  11                                               
+f   40  initl    word  0                                                
+f   43  test     word  11                                               
+f   46           end   bgn                                              

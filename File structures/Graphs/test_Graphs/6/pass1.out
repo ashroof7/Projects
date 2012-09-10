@@ -1,0 +1,15 @@
+.  COPY STRING S1 TO S2
+.   LOOP  WHERE INDEX = 1
+     1  0000     PROG  START                0000                                 
+     2  0000      BGN    LDT                 #11                                 
+     3  0003             LDX                  #0                                 
+     4  0006     LOOP   LDCH              STR1,X                                 
+     5  0009            STCH              STR2,X                                 
+     6  000C            TIXR                   T                                 
+     7  000E             JLT                LOOP                                 
+     8  0011               J                   *                                 
+.
+     ****Error: Invalid extra fields
+str1     byte    c'test string'  
+     9  0014     STR2   RESB                  11                                 
+    10  001F             END                PROG                                 

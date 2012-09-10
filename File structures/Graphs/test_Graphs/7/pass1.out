@@ -1,0 +1,24 @@
+.  COPY  8 INTEGERS FROM U TO V
+.  LOOP  INDEX <> 1
+     1  0000     PROG  START                0000                                 
+     2  0000      BGN    LDS                  #3                                 
+     3  0003             LDT                 #24                                 
+     4  0006             LDX                  #0                                 
+     5  0009     LOOP    LDA                 U,X                                 
+     6  000C             STA                 V,X                                 
+     7  000F            ADDR                 S,X                                 
+     8  0011           COMPR                 X,T                                 
+     9  0013             JLT                *-10                                 
+    10  0016               J                   *                                 
+.  
+.   LIST OF VALUES FOR U 
+     ****Error: Invalid operand
+u        word    1,2,3
+    11  0019            WORD                   4                                 
+    12  001C            WORD                   5                                 
+    13  001F            WORD                   6                                 
+    14  0022            WORD                   7                                 
+    15  0025            WORD                   8                                 
+.   ARRAY TO STORE RESULTS 
+    16  0028        V   RESW                   8                                 
+    17  0040             END                PROG                                 

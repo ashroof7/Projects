@@ -1,0 +1,46 @@
+package bufmgr;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class PlacementPolicy {
+	private Queue<Integer> q ;
+
+	public PlacementPolicy(int framesNo)
+	{
+		q = new LinkedList<Integer>();
+		
+		// TODO Change this and use size variable 
+		for (int i = 0; i < framesNo; i++)
+		{
+			q.add(i);
+		}
+	}
+
+	public int getFrame() throws BufferPoolExceededException
+	{
+		if (q.isEmpty())
+			throw new BufferPoolExceededException();
+		return q.poll();
+	}
+
+	public void addFrame(int frame)
+	{
+		q.add(frame);
+	}
+	
+	/**
+	 * 
+	 * @param page page index in the pool
+	 */
+	public void removeCandidate(int page)
+	{
+		q.remove(page);
+	}
+	
+	
+	public int getNumCandidates()
+	{
+		return q.size();
+	}
+}

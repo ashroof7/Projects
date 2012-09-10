@@ -1,0 +1,101 @@
+package bufmgr;
+
+import global.PageId;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+public class PlacementPolicy {
+	private Queue<PageId> queue;
+	private Stack<PageId> stack;
+
+	/**
+	 * creates a new placement policy with a specific placement strategy
+	 * 
+	 * @param policy
+	 *            argument of the placement policy
+	 */
+	public PlacementPolicy(String policy)
+	{
+		if (policy.compareTo("Clock") == 0)
+			// using clock policy
+			queue = new LinkedList<PageId>();
+		else
+			// using most recently used policy
+			stack = new Stack<PageId>();
+	}
+
+	/**
+	 * gets an empty unused frame to add the new page in it 
+	 * or null if there's no candidate
+	 * 
+	 * @return the PageId of the frame that can be replaced
+	 */
+	public PageId getEmptyFrame()
+	{
+		// Clock policy
+		if (queue != null)
+		{
+			if (!queue.isEmpty())
+				return queue.poll();
+			else
+				return null;
+
+		} else
+		{
+
+			// MRU
+			if (!stack.isEmpty())
+				return stack.pop();
+			else
+				return null;
+		}
+
+	}
+
+	/**
+	 * the method removes a candidate from the candidate list
+	 * 
+	 * this method will be called when a page was requested to be loaded and it
+	 * was found in the pool and want to increase it's pin to '1'
+	 */
+	public void removeCandidate(PageId pageID)
+	{
+		// Clock policy
+		if (queue != null)
+		{
+			queue.remove(pageID);
+		} else
+		{
+			// MRU
+			stack.remove(pageID);
+		}
+	}
+
+	/**
+	 * the method add a candidate to the candidate list
+	 * 
+	 * this method will be called when a pin count of a page become zero
+	 */
+	public void addCandidate(PageId pageID)
+	{
+		// Clock policy
+		if (queue != null)
+		{
+			queue.add(pageID);
+		} else
+		{
+			// MRU
+			stack.add(pageID);
+		}
+	}
+
+	public int getNumOfCandidates()
+	{
+		if (queue != null)
+			return queue.size();
+		else
+			return stack.size();
+	}
+}

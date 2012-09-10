@@ -1,0 +1,13 @@
+.23456789012345678901234567890123456
+.LABEL.  OPCODE  THE  O P E R A N D 
+.   
+     1  0000      BGN  START                0000                                 
+     2  0000             LDA                  #5                                 
+     3  0003             STA               ALPHA                                 
+     4  0006            LDCH                 #90                                 
+     5  0009            STCH                  C1                                 
+     6  000C               J                   *                                 
+.
+     7  000F    ALPHA   RESW                   1                                 
+     8  0012       C1   RESB                   1                                 
+     9  0013             END                 BGN                                 

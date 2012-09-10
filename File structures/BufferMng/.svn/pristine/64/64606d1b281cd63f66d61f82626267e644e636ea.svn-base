@@ -1,0 +1,54 @@
+package bufmgr;
+
+import global.PageId;
+
+public class BufDescr {
+	private int pinCount;
+	private boolean dirtyBit;
+	private PageId number;
+
+	public BufDescr(PageId number)
+	{
+		 pinCount = 0 ;
+		 dirtyBit = false;
+		this.number = number;
+	}
+
+	public int getPinCount()
+	{
+		return pinCount;
+	}
+
+	public void setPinCount(int pinCount)
+	{
+		this.pinCount = pinCount;
+	}
+
+	public boolean isDirtyBit()
+	{
+		return dirtyBit;
+	}
+
+	public void setDirtyBit(boolean dirtyBit)
+	{
+		this.dirtyBit = dirtyBit;
+	}
+
+	public PageId getNumber()
+	{
+		return number;
+	}
+
+	public void setNumber(PageId number)
+	{
+		this.number = number;
+	}
+	public boolean decreamentPinCount()
+	{
+		return --pinCount == 0;
+	}
+	public void increamentPinCount()
+	{
+		pinCount++;
+	}
+}

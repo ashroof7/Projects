@@ -1,0 +1,168 @@
+package bufmgr;
+
+import java.util.LinkedList;
+
+public class HashTable<K, E> {
+	private int size, n = 0;
+	private static final int A = 1, B = 1, DEFAULT_HASH_SIZE = 10;
+	LinkedList<Entry<K, E>>[] table; // Used array instead of Array list
+
+	@SuppressWarnings("unchecked")
+	public HashTable(int size)
+	{
+		this.size = size;
+		table = (LinkedList<Entry<K, E>>[]) new Object[size]; // Generic issue
+		for (int i = 0; i < size; i++)
+		{
+			table[i] = new LinkedList<Entry<K, E>>();
+		}
+	}
+
+	public HashTable()
+	{
+		this(DEFAULT_HASH_SIZE);
+	}
+
+	public void put(K key, E value)
+	{
+		Entry<K, E> temp = search(key);
+		if (temp == null)
+		{
+			int index = hashF(key);
+			insert(value, key, index);
+			n++;
+		} else
+		{
+			temp.setValue(value);
+		}
+	}
+
+	public E get(K key)
+	{
+		Entry<K, E> temp = search(key);
+		if (temp == null)
+			return null;
+		return temp.getValue();
+	}
+
+	public E remove(K key)
+	{
+		Entry<K, E> temp = search(key);
+		if (temp != null)
+		{
+			int index = hashF(key);
+			table[index].remove(temp);
+			return temp.getValue();
+		}
+		return null;
+	}
+
+	// recently added
+	public boolean containsKey(K key)
+	{
+		int index = hashF(key);
+		if (table[index] == null)
+			return false;
+		
+		// I changed it because HashF() isn't unique so where can be multiple
+		// keys in the same table[index] (Collision)
+		for (Entry<K, E> entry : table[index])
+			if (entry.key.equals(key))
+				return true;
+
+		return false;
+	}
+
+	// recently added
+	public boolean containsValue(E value)
+	{
+		for (int i = 0; i < table.length; i++)
+		{
+			for (Entry<K, E> element : table[i])
+			{
+				if (element.getValue().equals(value))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	public int size()
+	{
+		return size;
+	}
+
+	public int numberOfElements()
+	{
+		return n;
+	}
+
+	public String toString()
+	{
+		String str = "";
+		if (size != 0)
+			str += table[0].toString();
+		int i = 0;
+		for (LinkedList<Entry<K, E>> list : table)
+			if (i++ != 0)
+				str += "\n" + list.toString();
+		return str;
+	}
+
+	private void insert(E value, K key, int index)
+	{
+		LinkedList<Entry<K, E>> list = table[index];
+
+		// NO Need because we will append it at the end of the list anyway
+		// int i = 0;
+		// for (Entry<K, E> temp : list)
+		// {
+		// if (temp.key.equals(key))
+		// break;
+		// i++;
+		// }
+		// TO append it at the end of the list with no "i"
+		list.add(/* i, */new Entry<K, E>(key, value));
+	}
+
+	private Entry<K, E> search(K key)
+	{
+		Entry<K, E> entry = null;
+		int index = hashF(key);
+		for (Entry<K, E> temp : table[index])
+		{
+			boolean compare = temp.key.equals(key);
+			if (compare)
+			{
+				entry = temp;
+				break;
+			}
+		}
+		return entry;
+	}
+
+	private int hashF(K key)
+	{
+		return (A * key.hashCode() + B) % size;
+	}
+
+	public static void main(String[] args)
+	{
+		// Hashtable<Integer, String> hash = new Hashtable<Integer, String>();
+		// hash.put(0, "first");
+		// hash.put(0, "second");
+		// System.out.println(hash.get(0));
+		HashTable<Integer, String> hash = new HashTable<Integer, String>();
+		hash.put(0, "zero1");
+		hash.put(10, "zero2");
+		System.out.println(hash.toString());
+		hash.remove(10);
+		System.out.println(hash.toString());
+		hash.remove(0);
+		System.out.println(hash.toString());
+		hash.remove(0);
+		System.out.println(hash.toString());
+
+	}
+
+}

@@ -1,0 +1,54 @@
+t    0  .2345678901234567890                                              
+f    0  copy     start 0                                                
+f    0  first    stl   retadr                                           
+f    3           ldb   #length                                          
+f    6           base  length                                           
+f    6  cloop   +jsub  rdrec                                            
+f   10           lda   length                                           
+f   13           comp  #0                                               
+f   16           jeq   endfil                                           
+f   19          +jsub  wrrec                                            
+f   23           j     cloop                                            
+f   26  endfil   lda   eof                                              
+f   29           sta   buffer                                           
+f   32           lda   #3                                               
+f   35           sta   length                                           
+f   38          +jsub  wrrec                                            
+f   42           j     @retadr                                          
+f   45  eof      byte  C'EOF'                                           
+f   48  retadr   resw  1                                                
+f   51  length   resw  1                                                
+f   54  buffer   resb  4096                                             
+t 4150  .                                                                 
+t 4150  .        SUBROUTINE TO READ RECORD INTO BUFFER                    
+t 4150  .                                                                 
+f 4150  rdrec    clear X                                                
+f 4152           clear A                                                
+f 4154           clear S                                                
+f 4156  fourk    equ   4096                                             
+f 4156          +ldt   #fourk                                           
+f 4160  rloop    td    input                                            
+f 4163           jeq   rloop                                            
+f 4166           rd    input                                            
+f 4169           compr A,S                                              
+f 4171           jeq   exit                                             
+f 4174           stch  buffer,X                                         
+f 4177           tixr  T                                                
+f 4179           jlt   rloop                                            
+f 4182  exit     stx   length                                           
+f 4185           rsub                                                   
+f 4188  input    byte  X'F1'                                            
+t 4189  .                                                                 
+t 4189  .        SUBROUTINE TO WRITE RECORD FROM BUFFER                   
+t 4189  .                                                                 
+f 4189  wrrec    clear X                                                
+f 4191           ldt   length                                           
+f 4194  wloop    td    output                                           
+f 4197           jeq   wloop                                            
+f 4200           ldch  buffer,X                                         
+f 4203           wd    output                                           
+f 4206           tixr  T                                                
+f 4208           jlt   wloop                                            
+f 4211           rsub                                                   
+f 4214  output   byte  X'05'                                            
+f 4215           end   first                                            

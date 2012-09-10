@@ -1,0 +1,16 @@
+.23456789012345678901234567890123456
+. ALT & ENTER TO TOGGLE FULL SCREEN 
+.LABEL.  OPCODE  THE  O P E R A N D 
+.   
+     1  0100      BGN  START                0100                                 
+     2  0100             LDA                FIVE                                 
+     3  0103             STA               ALPHA                                 
+     4  0106            LDCH                CHRZ                                 
+     5  0109            STCH                  C1                                 
+     6  010C               J                   *                                 
+.
+     7  010F     FIVE   WORD                   5                                 
+     8  0112     CHRZ   BYTE                C'Z'                                 
+     9  0113    ALPHA   RESW                   1                                 
+    10  0116       C1   RESB                   1                                 
+    11  0117             END                 BGN                                 

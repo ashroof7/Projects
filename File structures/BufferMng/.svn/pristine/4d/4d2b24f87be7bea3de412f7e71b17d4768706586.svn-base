@@ -1,0 +1,65 @@
+package bufmgr;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class PlacementPolicy {
+	private LinkedList<Integer> list;
+
+	public PlacementPolicy()
+	{
+		list = new LinkedList<Integer>();
+
+		// TODO Change this and use size variable
+		// for (int i = 0; i < framesNo; i++)
+		// {
+		// q.add(i);
+		// }
+	}
+
+	public int getFrame() throws BufferPoolExceededException
+	{
+		if (list.isEmpty())
+			throw new BufferPoolExceededException();
+		return list.removeFirst();
+	}
+
+	public void addFrame(int frame)
+	{
+		if (list.contains(frame))
+			System.err.println("###try to add frame that was in the pool (inpinning page with zero pin)####");
+		list.addLast(frame);
+	}
+
+	/**
+	 * will add a new frame a sets it with highest priority to be candidate
+	 */
+	public void addFreeFrame(int freeFrame)
+	{
+		removeCandidate(freeFrame);
+		list.addFirst(freeFrame);
+	}
+
+	/**
+	 * 
+	 * @param page
+	 *            page index in the pool
+	 */
+	public void removeCandidate(int page)
+	{
+		Iterator<Integer> itr = list.iterator();
+		while (itr.hasNext())
+		{
+			if (itr.next() == page)
+			{
+				itr.remove();
+				break;
+			}
+		}
+	}
+
+	public int getNumCandidates()
+	{
+		return list.size();
+	}
+}

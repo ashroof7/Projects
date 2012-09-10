@@ -1,0 +1,168 @@
+package bufmgr;
+
+import global.GlobalConst;
+import global.PageId;
+import global.SystemDefs;
+
+import java.io.IOException;
+
+import chainexception.ChainException;
+import diskmgr.DiskMgrException;
+import diskmgr.FileIOException;
+import diskmgr.InvalidPageNumberException;
+import diskmgr.InvalidRunSizeException;
+import diskmgr.OutOfSpaceException;
+import diskmgr.Page;
+
+public class BufMgr {
+	private byte[][] bufpool;
+	private int bufsize;
+	private int used; //TODO Number of frames that contain unpinned pages + empty frames (if any) ............and check in pinPage() ......change as it may be freed from the middle
+	private BufDescr[] bufDescr;
+	
+	private HashTable<PageId, Integer> hash;
+	private PlacementPolicy placement_policy;
+
+	// bufPool[Pool_size][Page_Size] page size can be found in the GobalConstant
+	// Class
+
+	public BufMgr(int numbufs, String replacementArg)
+	{
+		placement_policy = new PlacementPolicy(numbufs);
+		bufpool = new byte[numbufs][GlobalConst.MINIBASE_PAGESIZE];
+		bufsize = numbufs;
+		used = 0;
+	}
+
+	// Don't remove from hash
+	public void unpinPage(PageId PageID_in_a_DB, boolean dirty)
+			throws ChainException
+	{
+		int index = hash.get(PageID_in_a_DB);
+		if (0 == bufDescr[index].getPinCount())
+			throw new PageUnpinnedException();
+		boolean isZero = bufDescr[index].decreamentPinCount();
+		if (isZero)
+			placement_policy.addFrame(index);
+	}
+
+	/**
+	 * Pin a page. First check if this page is already in the buffer pool. If it
+	 * is, increment the pin_count and return a pointer to this page. If the
+	 * pin_count was 0 before the call, the page was a replacement candidate,
+	 * but is no longer a candidate. If the page is not in the pool, choose a
+	 * frame (from the set of replacement candidates) to hold this page, read
+	 * the page (using the appropriate method from {\em diskmgr} package) and
+	 * pin it. Also, must write out the old page in chosen frame if it is dirty
+	 * before reading new page. (You can assume that emptyPage==false for this
+	 * assignment.)
+	 * 
+	 * @param Page_Id_in_a_DB
+	 *            page number in the minibase.
+	 * @param page
+	 *            the pointer poit to the page.
+	 * @param emptyPage
+	 *            true (empty page); false (non-empty page)
+	 */
+	public void pinPage(PageId pin_pgid, Page page, boolean empty)
+			throws ChainException
+	{
+		// TODO USED int
+		// check in the bufpool or not , Checking null is faster way
+		Integer index = hash.get(pin_pgid);
+		if (index != null)
+		{
+			// pincount++
+			boolean wasZero = bufDescr[index].increamentPinCount();
+			
+			// remove from queue
+			if(wasZero)
+				placement_policy.removeCandidate(index);
+		} else
+		{
+
+			int oldFrame = placement_policy.getFrame();
+
+			try
+			{
+				SystemDefs.JavabaseDB.read_page(pin_pgid, page);
+			} catch (IOException e)
+			{
+				throw new ChainException(e, "DB.java: read_page() failed");
+			}
+			
+			freePage(bufDescr[oldFrame].getId());
+			
+			// put page in bufpool
+			bufpool[oldFrame] = page.getpage();
+			bufDescr[oldFrame] = new BufDescr(pin_pgid);
+			
+		}
+
+	}
+
+	public PageId newPage(Page firstpage, int howmany)
+			throws OutOfSpaceException, InvalidRunSizeException,
+			InvalidPageNumberException, FileIOException, DiskMgrException,
+			IOException
+	{
+		// Some Notes :
+		// this method calls DB allocate page , the DB allocate page calls
+		// pinPage to read it and then calls unPin() to set the count to 0
+		// so We should increment pin_count
+		PageId pid = new PageId();
+		SystemDefs.JavabaseDB.allocate_page(pid, howmany);
+
+		// Check whether it was inserted in the hash or not
+		Integer index = hash.get(pid);
+		if (index != null)
+		{
+			firstpage.setpage(bufpool[index]);
+			return pid;
+		}
+		// NO empty frame was found will deallocate them form DB and return null
+		SystemDefs.JavabaseDB.deallocate_page(pid, howmany);
+		return null;
+	}
+	
+	// TODO invalid id and decrement used
+	public void freePage(PageId globalPageId) throws ChainException
+	{
+		Integer index = hash.get(globalPageId);
+		hash.remove(globalPageId);
+		if (index != null)
+			placement_policy.addFrame(index);
+		try
+		{
+			SystemDefs.JavabaseDB.deallocate_page(globalPageId);
+		} catch (IOException e)
+		{
+			throw new ChainException(e, "DB.java: deallocate_page() failed");
+		}
+
+	}
+	
+	// TODO check invalid id  Throw HashEntryNotFoundException
+	// throw Exception??? invalid pageid??
+	public void flushPage(PageId pageid) throws ChainException
+	{
+		Integer index = hash.get(pageid);
+		if (index != null)
+		{
+			if (bufDescr[index].isDirtyBit())
+				try
+				{
+					SystemDefs.JavabaseDB.write_page(pageid, new Page(
+							bufpool[index]));
+				} catch (Exception e)
+				{
+					throw new ChainException(e, "DB.java: write_page() failed");
+				}
+		}
+	}
+
+	public int getNumUnpinnedBuffers()
+	{
+		return placement_policy.getNumCandidates()+bufsize-used;
+	}
+}

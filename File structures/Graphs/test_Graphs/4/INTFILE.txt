@@ -1,0 +1,14 @@
+t    0  .23456789012345678901234567890123456                              
+t    0  .Label.  Opcode  The  O p e r a n d                               
+t    0  .                                                                 
+f    0           start 0000                                             
+f    0  bgn      lda   alpha                                            
+f    3           add   incr                                             
+f    6           sub   #3                                               
+f    9           sta   beta                                             
+f   12           j     *                                                
+t   15  .                                                                 
+f   15  alpha    resw  1                                                
+f   18  beta     resw  1                                                
+f   21  incr     resw  1                                                
+f   24           end   bgn                                              
