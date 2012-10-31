@@ -1,0 +1,18 @@
+result of non-threaded multiplication
+-1 10 -15 -28 
+-3 -10 15 -36 
+5 -2 -9 -20 
+elapsed time = 2 usec
+
+result of multiplication1 (thread for each cell)
+-1 10 -15 -28 
+-3 -10 15 -36 
+5 -2 -9 -20 
+elapsed time = 600 usec
+
+result of multiplication2 (thread for each row)
+-1 10 -15 -28 
+-3 -10 15 -36 
+5 -2 -9 -20 
+elapsed time = 109 usec
+
