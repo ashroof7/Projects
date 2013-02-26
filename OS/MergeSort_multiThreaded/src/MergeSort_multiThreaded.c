@@ -7,7 +7,7 @@
  Description : The ordinary merge sort (nlog(n)) using multi threads
  	 	 	   the objective of this assignment to create, use posix threads
  	 	 	   and not to improve complexity.
- 	 	 	   see Introduction to algorithms (CORMEN) for advances multi threaded
+ 	 	 	   see Introduction to algorithms (CORMEN) for advanced multi threaded
  	 	 	   merge sort
  ============================================================================
  */
